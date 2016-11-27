@@ -23,7 +23,7 @@ public class Book implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_gen")
 	@SequenceGenerator(name = "book_gen", sequenceName = "book_seq")
 	private Integer id;
-	@Column(unique = true)
+	@Column
 	private String isbn;
 	@ManyToOne
 	@JoinColumn(name = "CATALOG_ID")
