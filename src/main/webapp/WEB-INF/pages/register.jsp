@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9" pageEncoding="ISO-8859-9"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
+    pageEncoding="ISO-8859-9"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
@@ -11,35 +12,37 @@
 	<link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
+	
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">Kullanýcý Kaydý Sayfasý</div>
 				<div class="panel-body">
-					<form role="form">
+					<form:form role="form" action="register" method="post">
 						<fieldset>
 							<div class="form-group">
-								<input class="form-control" placeholder="Kullanýcý Adý" name="kullaniciAdi" autofocus>
+								<form:input path="username" class="form-control" placeholder="Kullanýcý Adý" name="username" autofocus=""/>
 							</div>
 							<div class="form-group">
-								<input class="form-control" placeholder="Þifre" name="password" type="password">
+								<form:input path="password" class="form-control" placeholder="Þifre" name="password" type="password"/>
 							</div>
 							<div class="form-group">
-								<input class="form-control" placeholder="Þifre Tekrarý" name="passwordAgain" type="password">
+								<form:input path="passwordagain" class="form-control" placeholder="Þifre Tekrarý" name="passwordagain" type="password"/>
 							</div>
 							<div class="row">
 								<div class="col-md-6" style="text-align:center;">
 									<a href="" class="btn btn-block btn-primary">Kaydý Tamamla</a>
 								</div>
 								<div class="col-md-6" style="text-align:center;">
-									<a href="" class="btn btn btn-block btn-success">Giriþ Sayfasýna Dön</a>
+									<a href="login.jsp" class="btn btn btn-block btn-success">Giriþ Sayfasýna Dön</a>
 								</div> 
-							</div>
 						</fieldset>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div><!-- /.col-->
 	</div><!-- /.row -->	
+	 
 </body>
+
 </html>

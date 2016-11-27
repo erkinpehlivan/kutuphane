@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-9" pageEncoding="ISO-8859-9"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+    <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,31 +78,31 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Þifre Deðiþtirme Formu</div>
 				<div class="panel-body">
-					<form role="form">
+					<form:form modelAttribute="user" role="form" action="changePassword" method="post">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Eski Þifreniz</label>
-									<input type="password" class="form-control">
+									<form:input path="oldpassword" class="form-control" name="oldpassword" type="password"/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Yeni Þifreniz</label>
-									<input type="password" class="form-control">
+									<form:input path="newpassword" class="form-control" name="newpassword" type="password"/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Yeni Þifre Tekrarý</label>
-									<input type="password" class="form-control">
+									<form:input path="newpasswordAgain" class="form-control" name="newpasswordAgain" type="password"/>
 								</div>
 							</div>
 							<div class="col-md-12">
 								<button type="submit" class="btn btn-block btn-primary">Parolayý Deðiþtir</button>
 							</div>
 						</div>
-					</form>
+					</form:form>
 				</div>
 		</div><!--/.row-->		
 		
