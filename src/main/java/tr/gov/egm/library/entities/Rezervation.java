@@ -18,9 +18,8 @@ public class Rezervation implements Serializable {
 
 	private static final long serialVersionUID = 4222917304192861199L;
 
-	public static final String STARTED = "started";
-	public static final String FINISHED = "finished";
-	public static final String CANCELED = "canceled";
+	public static final String REGISTERED = "registered";
+	public static final String CANCELLED = "cancelled";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rezervation_gen")
