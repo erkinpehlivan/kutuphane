@@ -1,21 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
-    pageEncoding="ISO-8859-9"%>
-    <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-9" pageEncoding="ISO-8859-9"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kütüphane | Þifre Deðiþtir</title>
-
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/datepicker3.css" rel="stylesheet">
-<link href="css/bootstrap-table.css" rel="stylesheet">
-<link href="css/styles.css" rel="stylesheet">
-
-<!--Icons-->
-<script src="js/lumino.glyphs.js"></script>
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Kütüphane | Þifre Deðiþtir</title>
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/datepicker3.css" rel="stylesheet">
+	<link href="css/bootstrap-table.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+	
+	<!--Icons-->
+	<script src="js/lumino.glyphs.js"></script>
 </head>
 
 <body>
