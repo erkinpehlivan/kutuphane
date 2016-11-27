@@ -1,4 +1,4 @@
-package tr.gov.egm.library.exceptions.dao;
+package tr.gov.egm.library.exceptions.service;
 
 public class CRUDException extends Exception {
 

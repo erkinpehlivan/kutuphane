@@ -1,6 +1,6 @@
-package tr.gov.egm.library.exceptions.service;
+package tr.gov.egm.library.exceptions.dao;
 
-import tr.gov.egm.library.exceptions.dao.CRUDException;
+import tr.gov.egm.library.exceptions.service.CRUDException;
 
 public class UpdateException extends CRUDException {
 
