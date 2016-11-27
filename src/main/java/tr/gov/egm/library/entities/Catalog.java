@@ -20,8 +20,8 @@ public class Catalog implements Serializable {
 	private static final long serialVersionUID = -8539421375981281267L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_gen")
-	@SequenceGenerator(name = "category_gen", sequenceName = "category_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "catalog_gen")
+	@SequenceGenerator(name = "catalog_gen", sequenceName = "catalog_seq")
 	private Integer id;
 	private String name;
 	private String title;
