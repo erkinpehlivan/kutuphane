@@ -1,6 +1,5 @@
 package tr.gov.egm.library.entities;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,10 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Entity
-public class Permission implements Serializable {
+public class Permission implements GrantedAuthority {
 
 	private static final long serialVersionUID = 7871545874084875848L;
+	
+    public final static String USER = "ROLE_USER";
+    public final static String ADMIN = "ROLE_ADMIN";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "permission_gen")
@@ -59,6 +63,12 @@ public class Permission implements Serializable {
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+
+	@Override
+	public String getAuthority() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
