@@ -1,5 +1,6 @@
 package tr.gov.egm.library.dao.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,19 +32,19 @@ public class RezervationDAOImpl implements RezervationDAO {
 	 * @param user
 	 * @param startDate
 	 * @param endDate
-	 * @throws CRUDException 
+	 * @throws CRUDException
 	 */
 	@Override
 	public void rezerveBookToAUserFromCatalog(Catalog catalog, User user, Date startDate, Date endDate) throws CRUDException {
 		try {
 			Book book = findAvailableBookForDates(catalog, startDate, endDate);
 			boolean status = checkStatus(book, user, startDate, endDate);
-			if(status){
+			if (status) {
 				makeReservation(book, user, startDate, endDate);
 			}
 		} catch (Exception e) {
 			throw new CRUDException("rezerveBookToAUserFromCatalog hatası", e);
-		} 
+		}
 	}
 
 	/**
@@ -57,14 +58,14 @@ public class RezervationDAOImpl implements RezervationDAO {
 	public void rezerveCertainBookToAUser(Book book, User user, Date startDate, Date endDate) throws CRUDException {
 
 		try {
-			if(checkStatus(book, user, startDate, endDate)){
+			if (checkStatus(book, user, startDate, endDate)) {
 				makeReservation(book, user, startDate, endDate);
 			}
 		} catch (Exception e) {
 			throw new CRUDException("Rezervasyon Yapılamadı", e);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param catalog
@@ -73,31 +74,30 @@ public class RezervationDAOImpl implements RezervationDAO {
 	 * @return
 	 * @throws NullPointerException
 	 */
-	private Book findAvailableBookForDates(Catalog catalog, Date startDate, Date endDate)throws ReadException{
+	@SuppressWarnings("unchecked")
+	private Book findAvailableBookForDates(Catalog catalog, Date startDate, Date endDate) throws ReadException {
 		try {
-			String sql ="select b from book b where b.id not in ("
-					+ "select BOOK_ID from rezervation r where r.startDate=:startDate and r.endDate=:endDate and r.state='started'"
-					+ ") and b.id in :idList";
-			
+			String sql = "select b from book b where b.id not in (" + "select BOOK_ID from rezervation r where r.startDate=:startDate and r.endDate=:endDate and r.state='started'" + ") and b.id in :idList";
+
 			Query availableBooks = sessionFactory.openSession().createSQLQuery(sql).addEntity(Book.class);
-			
+
 			availableBooks.setParameter("startDate", startDate);
 			availableBooks.setParameter("endDate", endDate);
 			availableBooks.setParameterList("idList", BookIdsFromCatalog(catalog));
-			
+
 			List<Book> books = availableBooks.list();
-			
-			Book book ;
-			if(books!=null && books.size()>0){
+
+			Book book;
+			if (books != null && books.size() > 0) {
 				book = books.get(0);
 				return book;
-			}else{
-				throw  new ReadException("Uygun kitap bulunamadı.", new Throwable("Uygun kitap bulunmadı hatası"));
+			} else {
+				throw new SQLException("Uygun kitap bulunamadı.");
 			}
 		} catch (Exception e) {
-			throw  new ReadException("Uygun kitap bulunamadı.", e);
+			throw new ReadException("Uygun kitap bulunamadı.", e);
 		}
-		
+
 	}
 
 	/**
@@ -113,8 +113,7 @@ public class RezervationDAOImpl implements RezervationDAO {
 
 			// if book is available ?
 			String isBookAvailableSql = "select r from rezervation r where r.BOOK_ID=:book_id and r.startDate>=:startDate and r.endDate<=:endDate and r.state!='cancelled'";
-			Query isBookAvailableQuery = sessionFactory.openSession().createSQLQuery(isBookAvailableSql)
-					.addEntity(Rezervation.class);
+			Query isBookAvailableQuery = sessionFactory.openSession().createSQLQuery(isBookAvailableSql).addEntity(Rezervation.class);
 			isBookAvailableQuery.setParameter("book_id", book.getId());
 			isBookAvailableQuery.setParameter("startDate", startDate);
 			isBookAvailableQuery.setParameter("endDate", endDate);
@@ -124,13 +123,12 @@ public class RezervationDAOImpl implements RezervationDAO {
 			if (bookReservationCount <= 0) {
 				result = true;
 			}
-			
+
 			return result;
 		} catch (Exception e) {
 			throw new ReadException("Kitap uygun değil.", e);
 		}
 	}
-	
 
 	/**
 	 * 
@@ -139,31 +137,29 @@ public class RezervationDAOImpl implements RezervationDAO {
 	 * @param startDate
 	 * @param endDate
 	 * @return
-	 * @throws ReadException 
+	 * @throws ReadException
 	 */
-	private boolean isUserAvailableForCatalogAndDates(User user,Catalog catalog,Date startDate, Date endDate) throws ReadException{
+	private boolean isUserAvailableForCatalogAndDates(User user, Catalog catalog, Date startDate, Date endDate) throws ReadException {
 		try {
-			boolean result=false;
-			String sql = "select r from rezervation r where r.USER_ID=:user_id and r.startDate>=:startDate and r.endDate<=:endDate and r.r.BOOK_ID in ("
-					+ "select book.id from book where book.CATALOG_ID=:catalog_id"
-					+ ") and r.status!='cancelled'";
+			boolean result = false;
+			String sql = "select r from rezervation r where r.USER_ID=:user_id and r.startDate>=:startDate and r.endDate<=:endDate and r.r.BOOK_ID in (" + "select book.id from book where book.CATALOG_ID=:catalog_id" + ") and r.status!='cancelled'";
 			Query userHasBook = sessionFactory.openSession().createSQLQuery(sql).addEntity(Rezervation.class);
 			userHasBook.setParameter("user_id", user.getId());
 			userHasBook.setParameter("startDate", startDate);
 			userHasBook.setParameter("endDate", endDate);
-			
+
 			int count = userHasBook.list().size();
-			
-			if(count<=0){
-				result=true;
+
+			if (count <= 0) {
+				result = true;
 			}
-			
+
 			return result;
 		} catch (Exception e) {
 			throw new ReadException("Kullanıcı uygun değil.", e);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param book
@@ -171,35 +167,35 @@ public class RezervationDAOImpl implements RezervationDAO {
 	 * @param startDate
 	 * @param endDate
 	 * @return
-	 * @throws CreateException 
+	 * @throws CreateException
 	 */
 	@Transactional
-	private boolean makeReservation(Book book,User user,Date startDate, Date endDate) throws CreateException{
-		
+	private boolean makeReservation(Book book, User user, Date startDate, Date endDate) throws CreateException {
+
 		try {
-			boolean result=false;
-			
+			boolean result = false;
+
 			Rezervation rezervation = new Rezervation();
 			rezervation.setBook(book);
 			rezervation.setUser(user);
 			rezervation.setStartDate(startDate);
 			rezervation.setEndDate(endDate);
-			
-			rezervation.setState(rezervation.REGISTERED);
-			
+
+			rezervation.setState(Rezervation.REGISTERED);
+
 			try {
 				sessionFactory.openSession().save(rezervation);
-				result=true;
+				result = true;
 			} catch (Exception e) {
-				result=false;
+				result = false;
 			}
-			
+
 			return result;
 		} catch (Exception e) {
 			throw new CreateException("Rezervasyon yapılırken hata oldu", e);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param book
@@ -207,50 +203,49 @@ public class RezervationDAOImpl implements RezervationDAO {
 	 * @param startDate
 	 * @param endDate
 	 * @return
-	 * @throws ReadException 
+	 * @throws ReadException
 	 */
-	private boolean checkStatus(Book book,User user,Date startDate, Date endDate) throws ReadException{
+	private boolean checkStatus(Book book, User user, Date startDate, Date endDate) throws ReadException {
 		try {
-			boolean status =false;
-			
+			boolean status = false;
+
 			boolean bookStatus = isBookAvailable(book, startDate, endDate);
-			
+
 			boolean userStatus = isUserAvailableForCatalogAndDates(user, book.getCatalog(), startDate, endDate);
-			
-			if(bookStatus && userStatus){
+
+			if (bookStatus && userStatus) {
 				status = true;
 			}
-			
-			
+
 			return status;
 		} catch (Exception e) {
 			throw new ReadException("checkStatus ta hata ", e);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param catalog
 	 * @return
 	 */
-	private List<Integer> BookIdsFromCatalog(Catalog catalog){
+	private List<Integer> BookIdsFromCatalog(Catalog catalog) {
 		List<Integer> ids = new ArrayList<>();
 		for (Book book : catalog.getBooks()) {
 			ids.add(book.getId());
 		}
-		
+
 		return ids;
 	}
 
 	/**
 	 * 
 	 * @param rezervation
-	 * @throws CreateException 
+	 * @throws CreateException
 	 */
 	@Override
 	public void cancelRezervation(Rezervation rezervation) throws CreateException {
 		try {
-			rezervation.setState(rezervation.CANCELLED);
+			rezervation.setState(Rezervation.CANCELLED);
 			sessionFactory.openSession().save(rezervation);
 		} catch (Exception e) {
 			throw new CreateException("cancelRezervation hatası", e);
@@ -260,13 +255,8 @@ public class RezervationDAOImpl implements RezervationDAO {
 	@Override
 	public int availableBookCountForDate(Catalog catalog, Date date) throws ReadException {
 		try {
-			String isBookAvailableSql = "select r from rezervation r where r.BOOK_ID in :book_id and ("
-						+ "(("
-						+ 	"r.startDate>:date or r.endDate<:date"
-						+ ") and r.state!='cancelled') or ((r.startDate<:date or r.endDate>:date) and r.state='cancelled')"
-					+ ")'";
-			Query isBookAvailableQuery = sessionFactory.openSession().createSQLQuery(isBookAvailableSql)
-					.addEntity(Rezervation.class);
+			String isBookAvailableSql = "select r from rezervation r where r.BOOK_ID in :book_id and (" + "((" + "r.startDate>:date or r.endDate<:date" + ") and r.state!='cancelled') or ((r.startDate<:date or r.endDate>:date) and r.state='cancelled')" + ")'";
+			Query isBookAvailableQuery = sessionFactory.openSession().createSQLQuery(isBookAvailableSql).addEntity(Rezervation.class);
 			isBookAvailableQuery.setParameter("book_id", BookIdsFromCatalog(catalog));
 			isBookAvailableQuery.setParameter("date", date);
 
@@ -276,12 +266,5 @@ public class RezervationDAOImpl implements RezervationDAO {
 			throw new ReadException("availableBookCountForDate hatası", e);
 		}
 	}
-
-
-
-
-
-
-
 
 }
