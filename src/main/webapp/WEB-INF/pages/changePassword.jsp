@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-9" pageEncoding="ISO-8859-9"%>
-    <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,17 +29,24 @@
 				<a class="navbar-brand" href="#"><span>EGM</span>KÜTÜPHANE</a>
 				<ul class="user-menu">
 					<li class="dropdown pull-right">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Kullanýcý Adý <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<svg class="glyph stroked male-user">
+								<use xlink:href="#stroked-male-user"></use>
+							</svg> 
+							Kullanýcý Adý <span class="caret"></span>
+						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Çýkýþ Yap </a></li>
+							<li><a href="#">
+								<svg class="glyph stroked cancel">
+									<use xlink:href="#stroked-cancel"></use>
+								</svg> Çýkýþ Yap </a>
+							</li>
 						</ul>
 					</li>
 				</ul>
 			</div>
-							
 		</div><!-- /.container-fluid -->
 	</nav>
-		
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<form role="search">
 			<div class="form-group">
@@ -127,5 +134,4 @@
 		})
 	</script>	
 </body>
-
 </html>

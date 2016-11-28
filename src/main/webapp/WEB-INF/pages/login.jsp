@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
-	pageEncoding="ISO-8859-9"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-9" pageEncoding="ISO-8859-9"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
@@ -23,11 +22,10 @@
 						<fieldset>
 							<div class="form-group">
 								<input class="form-control" placeholder="Kullanıcı Adı"
-									name="username" autofocus="">
+									name="username" autofocus>
 							</div>
 							<div class="form-group">
-								<input class="form-control" placeholder="Şifre" name="password"
-									type="password">
+								<input class="form-control" placeholder="Şifre" name="password" type="password">
 							</div>
 							<div class="row">
 								<div class="col-md-6" style="text-align: center;">
@@ -36,15 +34,13 @@
 								<div class="col-md-6" style="text-align: center;">
 									<a href="" class="btn btn-block btn-primary">Kayıt Ol</a>
 								</div>
+							</div>
 						</fieldset>
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</div>
 			</div>
 		</div><!-- /.col-->
 	</div><!-- /.row -->	
-
 </body>
-
 </html>

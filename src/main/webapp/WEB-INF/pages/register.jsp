@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
-    pageEncoding="ISO-8859-9"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-9" pageEncoding="ISO-8859-9"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +20,7 @@
 					<form:form role="form" action="register" method="post">
 						<fieldset>
 							<div class="form-group">
-								<form:input path="username" class="form-control" placeholder="Kullanýcý Adý" name="username" autofocus=""/>
+								<form:input path="username" class="form-control" placeholder="Kullanýcý Adý" name="username" autofocus/>
 							</div>
 							<div class="form-group">
 								<form:input path="password" class="form-control" placeholder="Þifre" name="password" type="password"/>
@@ -36,13 +35,12 @@
 								<div class="col-md-6" style="text-align:center;">
 									<a href="login.jsp" class="btn btn btn-block btn-success">Giriþ Sayfasýna Dön</a>
 								</div> 
+							</div>
 						</fieldset>
 					</form:form>
 				</div>
 			</div>
 		</div><!-- /.col-->
 	</div><!-- /.row -->	
-	 
 </body>
-
 </html>

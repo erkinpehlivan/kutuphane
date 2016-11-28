@@ -18,6 +18,8 @@
 
 	
 	<context:component-scan base-package="tr.gov.egm.library" />
+	
+	<mvc:resources location="/WEB-INF/resources/" mapping="resources/**" />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
 		p:prefix="/WEB-INF/pages/" p:suffix=".jsp" />
