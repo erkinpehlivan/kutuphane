@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +21,10 @@ import tr.gov.egm.library.exceptions.dao.CreateException;
 import tr.gov.egm.library.exceptions.dao.ReadException;
 import tr.gov.egm.library.exceptions.service.CRUDException;
 
-@Repository
+@NoRepositoryBean
 public class RezervationDAOImpl implements RezervationDAO {
 
-	@Autowired
+//	@Autowired
 	private SessionFactory sessionFactory;
 
 	/**

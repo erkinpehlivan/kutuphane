@@ -1,5 +1,6 @@
 package tr.gov.egm.library.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,8 +17,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Serializable {
 
+	private static final long serialVersionUID = -321280748607540415L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_gen")
 	@SequenceGenerator(name = "user_gen", sequenceName = "users_seq")

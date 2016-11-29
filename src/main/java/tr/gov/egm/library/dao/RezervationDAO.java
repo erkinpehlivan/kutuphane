@@ -47,8 +47,4 @@ public interface RezervationDAO extends Repository<Rezervation, Integer> {
 	
 	public int availableBookCountForDate(Catalog catalog,Date date)throws ReadException;
 
-	
-	
-	
-
 }

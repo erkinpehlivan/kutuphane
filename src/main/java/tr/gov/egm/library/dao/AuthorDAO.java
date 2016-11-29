@@ -12,7 +12,10 @@ import tr.gov.egm.library.entities.Author;
 @Repository
 public interface AuthorDAO extends CrudRepository<Author, Integer> {
 
-	@Query("from Author where name like '%:adi%'")
-	List<Author> findAuthorByName(@Param("name") String name);
+	// @Query("from Author where name like '%:adi%'")
+	// List<Author> findAuthorByName(@Param("adi") String name);
 
+	// yukaridaki sorgu yerine asagidaki standart isimler kullanilabilir
+
+	List<Author> findByNameLike(String name);
 }

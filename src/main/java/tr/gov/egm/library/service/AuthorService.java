@@ -15,7 +15,7 @@ public class AuthorService {
 	private AuthorDAO dao;
 
 	public List<Author> getAuthor(Author author) {
-		List<Author> authors = (List<Author>) dao.findAuthorByName(author.getName());
+		List<Author> authors = (List<Author>) dao.findByNameLike(author.getName());
 
 		return authors;
 	}

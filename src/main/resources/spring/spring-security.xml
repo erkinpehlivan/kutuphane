@@ -9,8 +9,8 @@
 		<intercept-url pattern="/giris.html" access="permitAll" />
 		<intercept-url pattern="/girisHatali.html" access="permitAll" />
 		<intercept-url pattern="/403.html" access="permitAll" />
-		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 		<form-login 
 			login-page="/giris.html"
 			authentication-failure-url="/girisHatali.html"
@@ -22,6 +22,7 @@
 	</http>
 
 	<global-method-security pre-post-annotations="enabled"/>
+	
 	<authentication-manager>
 	  <authentication-provider>
 	    <user-service>

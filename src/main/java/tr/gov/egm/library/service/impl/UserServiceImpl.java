@@ -10,19 +10,20 @@ import tr.gov.egm.library.service.UserService;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
-	
+public class UserServiceImpl implements UserService {
+
 	@Autowired
 	private UserDAO userDAO;
-	
+
 	@Override
 	public void register(User user) {
-		userDAO.register(user);
+		userDAO.save(user);
 	}
 
 	@Override
 	public void changePassword(User user) {
-		userDAO.changePassword(user);
+		// VT id varsa update ceker
+		userDAO.save(user);
 	}
 
 }
