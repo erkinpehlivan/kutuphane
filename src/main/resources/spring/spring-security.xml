@@ -9,22 +9,25 @@
 		<intercept-url pattern="/giris.html" access="permitAll" />
 		<intercept-url pattern="/girisHatali.html" access="permitAll" />
 		<intercept-url pattern="/403.html" access="permitAll" />
+		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+		
 		<form-login 
 			login-page="/giris.html"
 			authentication-failure-url="/girisHatali.html"
 			login-processing-url="/giris_kontrol"
 			username-parameter="kullaniciAdi"
 			password-parameter="parola" />
+			
 		<access-denied-handler error-page="/403.html" />
 		<csrf disabled="false" />
 	</http>
 
 	<global-method-security pre-post-annotations="enabled"/>
 	
-	<authentication-manager>
-	  <authentication-provider>
+	<authentication-manager >
+	  <authentication-provider >
 	    <user-service>
 	      <user name="user" password="password" authorities="ROLE_USER"/>
 	    </user-service>

@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class SecurityController {
 
 	@RequestMapping("/giris")
-	public String girisKontrol(){
+	public String girisKontrol() {
 		return "login";
 	}
-	
+
 	@RequestMapping("/girisHatali")
-	public String girisHatali(ModelMap map){
+	public String girisHatali(ModelMap map) {
 		map.put("hata", "true");
 		return "login";
 	}
-	
+
 	@RequestMapping("/403")
-	public String yetkinizYok(){
+	public String yetkinizYok() {
 		return "403";
 	}
 

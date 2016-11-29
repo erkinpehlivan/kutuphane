@@ -1,24 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
-	pageEncoding="ISO-8859-9"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-9" pageEncoding="ISO-8859-9"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kütüphane | Rapor Al</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Kütüphane | Rapor Al</title>
+	<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
+	<link href="<c:url value="/resources/css/datepicker3.css" />" rel="stylesheet">
+	<link href="<c:url value="/resources/css/bootstrap-table.css" />" rel="stylesheet">
+	<link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet">
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/datepicker3.css" rel="stylesheet">
-<link href="css/bootstrap-table.css" rel="stylesheet">
-<link href="css/styles.css" rel="stylesheet">
-
-<!--Icons-->
-<script src="js/lumino.glyphs.js"></script>
-
+	<!--Icons-->
+	<script src="<c:url value="/resources/js/lumino.glyphs.js" />"></script>
 </head>
 
 <body>

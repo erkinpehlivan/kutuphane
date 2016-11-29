@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
-    pageEncoding="ISO-8859-9"%>
-    <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-9" pageEncoding="ISO-8859-9"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +8,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Kütüphane | Anasayfa</title>
 	
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/datepicker3.css" rel="stylesheet">
-	<link href="css/bootstrap-table.css" rel="stylesheet">
-	<link href="css/styles.css" rel="stylesheet">
-	
+	<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
+	<link href="<c:url value="/resources/css/datepicker3.css" />" rel="stylesheet">
+	<link href="<c:url value="/resources/css/bootstrap-table.css" />" rel="stylesheet">
+	<link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet">
+
 	<!--Icons-->
-	<script src="js/lumino.glyphs.js"></script>
+	<script src="<c:url value="/resources/js/lumino.glyphs.js" />"></script>
 </head>
 
 <body>

@@ -3,7 +3,7 @@
   <display-name>LibraryProject</display-name>
   
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>giris.html</welcome-file>
   </welcome-file-list>
   
   <servlet>
