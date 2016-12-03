@@ -6,6 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/reg.html" access="permitAll" />
 		<intercept-url pattern="/giris.html" access="permitAll" />
 		<intercept-url pattern="/girisHatali.html" access="permitAll" />
 		<intercept-url pattern="/403.html" access="permitAll" />

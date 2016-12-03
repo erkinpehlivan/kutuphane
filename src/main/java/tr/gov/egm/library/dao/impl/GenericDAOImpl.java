@@ -14,6 +14,7 @@ import tr.gov.egm.library.dao.GenericDAO;
 import tr.gov.egm.library.exceptions.dao.CreateException;
 import tr.gov.egm.library.exceptions.dao.DeleteException;
 import tr.gov.egm.library.exceptions.dao.ReadException;
+import tr.gov.egm.library.exceptions.dao.UpdateException;
 
 @SuppressWarnings("unchecked")
 @Repository
@@ -21,20 +22,22 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	protected Class<? extends E> entityType;
-	
-	protected Session currentSession(){
+
+	protected Session currentSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
+
 	public GenericDAOImpl() {
 		Type t = getClass().getGenericSuperclass();
-		ParameterizedType pType = (ParameterizedType)t;
-		entityType=(Class<? extends E>) pType.getActualTypeArguments()[0];
+		ParameterizedType pType = (ParameterizedType) t;
+		entityType = (Class<? extends E>) pType.getActualTypeArguments()[0];
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see tr.gov.egm.library.dao.GenericDAO#add(java.lang.Object)
 	 */
 	@Override
@@ -42,13 +45,14 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 		try {
 			currentSession().save(e);
 		} catch (Exception ex) {
-			throw new CreateException("Kayıt ekleme başarısız",ex);
+			throw new CreateException("Kayıt ekleme başarısız", ex);
 		}
-		
+
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see tr.gov.egm.library.dao.GenericDAO#remove(java.lang.Object)
 	 */
 	@Override
@@ -58,21 +62,27 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 		} catch (Exception ex) {
 			throw new DeleteException("Silme işlemi başarısız", ex);
 		}
-		
+
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see tr.gov.egm.library.dao.GenericDAO#update(java.lang.Object)
 	 */
 	@Override
-	public void update(E e) {
-		currentSession().update(e);
-		
+	public void update(E e) throws UpdateException {
+		try {
+			currentSession().update(e);
+		} catch (Exception ex) {
+			throw new UpdateException("Guncelleme işlemi başarısız", ex);
+		}
+
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see tr.gov.egm.library.dao.GenericDAO#findById(java.lang.Object)
 	 */
 	@Override
@@ -84,8 +94,9 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 		}
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see tr.gov.egm.library.dao.GenericDAO#findAll()
 	 */
 	@Override
@@ -96,6 +107,5 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 			throw new ReadException("Kayıt listelenirken hata oluştu.", ex);
 		}
 	}
-	
-	
+
 }
