@@ -30,6 +30,9 @@ public class Book implements Serializable {
 	private Catalog catalog;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
 	private List<Rezervation> rezervations;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="book")
+	private List<BookTransaction> debits;
 
 	public Book() {
 	}
@@ -77,6 +80,20 @@ public class Book implements Serializable {
 
 	public void setRezervations(List<Rezervation> rezervations) {
 		this.rezervations = rezervations;
+	}
+
+	/**
+	 * @return the debits
+	 */
+	public List<BookTransaction> getDebits() {
+		return debits;
+	}
+
+	/**
+	 * @param debits the debits to set
+	 */
+	public void setDebits(List<BookTransaction> debits) {
+		this.debits = debits;
 	}
 
 }

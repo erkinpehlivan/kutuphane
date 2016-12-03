@@ -34,6 +34,8 @@ public class User implements Serializable {
 	private List<Log> logs;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Rezervation> rezervations;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private List<BookTransaction> debits;
 
 	public User() {
 	}
