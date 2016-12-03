@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,18 +22,14 @@ public class AuthorController {
 	@RequestMapping("/authors")
 	public String allAuthors(Model model) {
 		List<Author> author = service.getAllAuthors();
-
 		model.addAttribute("authors", author);
-
-		return "log";
+		return "authors";
 	}
 
-	@RequestMapping("/authorsByName")
-	public String authorsByName(Model model, @ModelAttribute(name = "name") Author author) {
-		List<Author> authors = service.getAuthor(author);
-
-		model.addAttribute("author", authors);
-
+	@RequestMapping("/author/{id}")
+	public String author(Model model, @PathVariable("id")Integer id) {
+		Author author = service.getAuthor(id);
+		model.addAttribute("author", author);
 		return "author";
 	}
 

@@ -8,12 +8,15 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import tr.gov.egm.library.dao.GenericDAO;
 import tr.gov.egm.library.exceptions.dao.CreateException;
 import tr.gov.egm.library.exceptions.dao.DeleteException;
 import tr.gov.egm.library.exceptions.dao.ReadException;
 
+@SuppressWarnings("unchecked")
+@Repository
 public abstract class GenericDAOImpl<E, K extends Serializable> implements GenericDAO<E, K> {
 
 	@Autowired
@@ -21,20 +24,15 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 	
 	protected Class<? extends E> entityType;
 	
-	protected Session currentSesison(){
+	protected Session currentSession(){
 		return sessionFactory.getCurrentSession();
 	}
 	
-	
-	/**
-	 * 
-	 */
 	public GenericDAOImpl() {
 		Type t = getClass().getGenericSuperclass();
 		ParameterizedType pType = (ParameterizedType)t;
 		entityType=(Class<? extends E>) pType.getActualTypeArguments()[0];
 	}
-
 
 	/* (non-Javadoc)
 	 * @see tr.gov.egm.library.dao.GenericDAO#add(java.lang.Object)
@@ -42,7 +40,7 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 	@Override
 	public void add(E e) throws CreateException {
 		try {
-			currentSesison().save(e);
+			currentSession().save(e);
 		} catch (Exception ex) {
 			throw new CreateException("Kayıt ekleme başarısız",ex);
 		}
@@ -56,7 +54,7 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 	@Override
 	public void remove(E e) throws DeleteException {
 		try {
-			currentSesison().delete(e);
+			currentSession().delete(e);
 		} catch (Exception ex) {
 			throw new DeleteException("Silme işlemi başarısız", ex);
 		}
@@ -69,7 +67,7 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 	 */
 	@Override
 	public void update(E e) {
-		currentSesison().update(e);
+		currentSession().update(e);
 		
 	}
 
@@ -80,7 +78,7 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 	@Override
 	public E findById(K pk) throws ReadException {
 		try {
-			return currentSesison().get(entityType, pk);
+			return currentSession().get(entityType, pk);
 		} catch (Exception ex) {
 			throw new ReadException("Kayıt getirilirken hata oluştu.", ex);
 		}
@@ -93,7 +91,7 @@ public abstract class GenericDAOImpl<E, K extends Serializable> implements Gener
 	@Override
 	public List<E> findAll() throws ReadException {
 		try {
-			return currentSesison().createCriteria(entityType).list();
+			return currentSession().createCriteria(entityType).list();
 		} catch (Exception ex) {
 			throw new ReadException("Kayıt listelenirken hata oluştu.", ex);
 		}

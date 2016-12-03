@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import tr.gov.egm.library.dao.AuthorDAO;
 import tr.gov.egm.library.entities.Author;
+import tr.gov.egm.library.exceptions.dao.ReadException;
 
 @Service
 public class AuthorService {
@@ -14,17 +15,29 @@ public class AuthorService {
 	@Autowired
 	private AuthorDAO dao;
 
-	public List<Author> getAuthor(Author author) {
-		List<Author> authors = (List<Author>) dao.findByNameLike(author.getName());
+	public List<Author> getAllAuthors() {
+		List<Author> authors = null;
+		try {
+			authors = dao.getAllAuthors();
+		} catch (ReadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return authors;
 	}
 
-	public List<Author> getAllAuthors() {
+	public Author getAuthor(Integer id) {
 
-		List<Author> authors = (List<Author>) dao.findAll();
+		Author author = null;
+		try {
+			author = dao.getAuthor(id);
+		} catch (ReadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		return authors;
+		return author;
 
 	}
 

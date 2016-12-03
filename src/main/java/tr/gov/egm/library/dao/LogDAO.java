@@ -1,12 +1,13 @@
 package tr.gov.egm.library.dao;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
 import tr.gov.egm.library.entities.Log;
 import tr.gov.egm.library.entities.User;
+import tr.gov.egm.library.exceptions.dao.ReadException;
 
-public interface LogDAO extends CrudRepository<Log, Integer> {
+public interface LogDAO extends GenericDAO<Log, Integer> {
 
-	Log findByUser(User user);
+	List<Log> findByUser(User user) throws ReadException;
 
 }

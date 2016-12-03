@@ -2,20 +2,22 @@ package tr.gov.egm.library.dao;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import tr.gov.egm.library.entities.Author;
+import tr.gov.egm.library.exceptions.dao.CreateException;
+import tr.gov.egm.library.exceptions.dao.ReadException;
+import tr.gov.egm.library.exceptions.dao.UpdateException;
 
 @Repository
-public interface AuthorDAO extends CrudRepository<Author, Integer> {
+public interface AuthorDAO {
 
-	// @Query("from Author where name like '%:adi%'")
-	// List<Author> findAuthorByName(@Param("adi") String name);
-
-	// yukaridaki sorgu yerine asagidaki standart isimler kullanilabilir
-
-	List<Author> findByNameLike(String name);
+	public List<Author> getAllAuthors() throws ReadException ;
+	
+	public Author getAuthor(Integer id)throws ReadException;
+	
+	public void AddAuthor(Author author)throws CreateException;
+	
+	public void updateAuthor(Author author)throws UpdateException;
+	
 }

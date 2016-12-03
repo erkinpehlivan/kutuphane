@@ -75,7 +75,7 @@ public class RezervationDAOImpl extends GenericDAOImpl<Rezervation, Integer> imp
 		try {
 			String sql = "select b from book b where b.id not in (" + "select BOOK_ID from rezervation r where r.startDate=:startDate and r.endDate=:endDate and r.state='started'" + ") and b.id in :idList";
 
-			Query availableBooks = currentSesison().createSQLQuery(sql).addEntity(Book.class);
+			Query availableBooks = currentSession().createSQLQuery(sql).addEntity(Book.class);
 
 			availableBooks.setParameter("startDate", startDate);
 			availableBooks.setParameter("endDate", endDate);
@@ -109,7 +109,7 @@ public class RezervationDAOImpl extends GenericDAOImpl<Rezervation, Integer> imp
 
 			// if book is available ?
 			String isBookAvailableSql = "select r from rezervation r where r.BOOK_ID=:book_id and r.startDate>=:startDate and r.endDate<=:endDate and r.state!='cancelled'";
-			Query isBookAvailableQuery = currentSesison().createSQLQuery(isBookAvailableSql).addEntity(Rezervation.class);
+			Query isBookAvailableQuery = currentSession().createSQLQuery(isBookAvailableSql).addEntity(Rezervation.class);
 			isBookAvailableQuery.setParameter("book_id", book.getId());
 			isBookAvailableQuery.setParameter("startDate", startDate);
 			isBookAvailableQuery.setParameter("endDate", endDate);
@@ -139,7 +139,7 @@ public class RezervationDAOImpl extends GenericDAOImpl<Rezervation, Integer> imp
 		try {
 			boolean result = false;
 			String sql = "select r from rezervation r where r.USER_ID=:user_id and r.startDate>=:startDate and r.endDate<=:endDate and r.r.BOOK_ID in (" + "select book.id from book where book.CATALOG_ID=:catalog_id" + ") and r.status!='cancelled'";
-			Query userHasBook = currentSesison().createSQLQuery(sql).addEntity(Rezervation.class);
+			Query userHasBook = currentSession().createSQLQuery(sql).addEntity(Rezervation.class);
 			userHasBook.setParameter("user_id", user.getId());
 			userHasBook.setParameter("startDate", startDate);
 			userHasBook.setParameter("endDate", endDate);
@@ -180,7 +180,7 @@ public class RezervationDAOImpl extends GenericDAOImpl<Rezervation, Integer> imp
 			rezervation.setState(Rezervation.REGISTERED);
 
 			try {
-				currentSesison().save(rezervation);
+				currentSession().save(rezervation);
 				result = true;
 			} catch (Exception e) {
 				result = false;
@@ -242,7 +242,7 @@ public class RezervationDAOImpl extends GenericDAOImpl<Rezervation, Integer> imp
 	public void cancelRezervation(Rezervation rezervation) throws CreateException {
 		try {
 			rezervation.setState(Rezervation.CANCELLED);
-			currentSesison().save(rezervation);
+			currentSession().save(rezervation);
 		} catch (Exception e) {
 			throw new CreateException("cancelRezervation hatası", e);
 		}
@@ -252,7 +252,7 @@ public class RezervationDAOImpl extends GenericDAOImpl<Rezervation, Integer> imp
 	public int availableBookCountForDate(Catalog catalog, Date date) throws ReadException {
 		try {
 			String isBookAvailableSql = "select r from rezervation r where r.BOOK_ID in :book_id and (" + "((" + "r.startDate>:date or r.endDate<:date" + ") and r.state!='cancelled') or ((r.startDate<:date or r.endDate>:date) and r.state='cancelled')" + ")'";
-			Query isBookAvailableQuery = currentSesison().createSQLQuery(isBookAvailableSql).addEntity(Rezervation.class);
+			Query isBookAvailableQuery = currentSession().createSQLQuery(isBookAvailableSql).addEntity(Rezervation.class);
 			isBookAvailableQuery.setParameter("book_id", BookIdsFromCatalog(catalog));
 			isBookAvailableQuery.setParameter("date", date);
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tr.gov.egm.library.entities.User;
+import tr.gov.egm.library.exceptions.service.BusinessException;
 import tr.gov.egm.library.service.UserService;
 
 @Controller
@@ -18,7 +19,7 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public String register(String username, String passwd, String passwdAgain, BindingResult br) {
+	public String register(String username, String passwd, String passwdAgain, BindingResult br) throws BusinessException {
 		String sayfa = "login";
 		if(!passwd.equals(passwdAgain)){
 			sayfa = "register";
@@ -31,7 +32,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "changePassword", method = RequestMethod.POST)
-	public String changePassword(@ModelAttribute("user") User user, String oldPasswd, String newPasswd, String newPasswdAgain, BindingResult br){
+	public String changePassword(@ModelAttribute("user") User user, String oldPasswd, String newPasswd, String newPasswdAgain, BindingResult br) throws BusinessException{
 		String sayfa = "login";
 		
 		// eski parola ile yeni parola ayniysa guncelleme islemine gerek yok.
