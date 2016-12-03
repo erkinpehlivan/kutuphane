@@ -8,7 +8,7 @@ import tr.gov.egm.library.entities.Rezervation;
 import tr.gov.egm.library.entities.User;
 import tr.gov.egm.library.exceptions.service.BusinessException;
 
-public interface RezervationService {
+public interface RezervationService extends GenericService<Rezervation, Integer> {
 	
 	public void makeReservationWithCatalog(Catalog catalog,Date startDate,Date endDate, User user) throws BusinessException;
 	public void makeReservationWithBook(Book book,Date startDate,Date endDate, User user)throws BusinessException;

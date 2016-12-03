@@ -1,9 +1,11 @@
 package tr.gov.egm.library.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tr.gov.egm.library.dao.GenericDAO;
 import tr.gov.egm.library.dao.UserDAO;
 import tr.gov.egm.library.entities.User;
 import tr.gov.egm.library.exceptions.service.BusinessException;
@@ -12,10 +14,16 @@ import tr.gov.egm.library.service.UserService;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends GenericServiceImpl<User, Integer> implements UserService {
 
-	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	public UserServiceImpl(@Qualifier("userDAOImpl")GenericDAO<User, Integer> genericDAO) {
+		super(genericDAO);
+		userDAO = (UserDAO)genericDAO;
+	}
+
 
 	/**
 	 * Registers new user

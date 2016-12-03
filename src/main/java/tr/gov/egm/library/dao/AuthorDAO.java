@@ -2,17 +2,14 @@ package tr.gov.egm.library.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import tr.gov.egm.library.entities.Author;
 import tr.gov.egm.library.exceptions.dao.CreateException;
 import tr.gov.egm.library.exceptions.dao.ReadException;
 import tr.gov.egm.library.exceptions.dao.UpdateException;
 
-@Repository
-public interface AuthorDAO {
+public interface AuthorDAO extends GenericDAO<Author, Integer> {
 
-	public List<Author> getAllAuthors() throws ReadException ;
+	public List<Author> getAllAuthors()  throws ReadException ;
 	
 	public Author getAuthor(Integer id)throws ReadException;
 	

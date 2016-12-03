@@ -91,19 +91,19 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Eski Þifreniz</label>
-									<form:input path="oldpassword" class="form-control" name="oldpassword" type="password"/>
+									<form:input path="password" class="form-control" name="password" type="password"/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Yeni Þifreniz</label>
-									<form:input path="newpassword" class="form-control" name="newpassword" type="password"/>
+									<form:input path="newPassword" class="form-control" name="newPassword" type="password"/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Yeni Þifre Tekrarý</label>
-									<form:input path="newpasswordAgain" class="form-control" name="newpasswordAgain" type="password"/>
+									<form:input path="newPasswordAgain" class="form-control" name="newPasswordAgain" type="password"/>
 								</div>
 							</div>
 							<div class="col-md-12">

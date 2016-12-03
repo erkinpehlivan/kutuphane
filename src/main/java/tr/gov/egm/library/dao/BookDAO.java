@@ -2,15 +2,12 @@ package tr.gov.egm.library.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import tr.gov.egm.library.entities.Book;
 import tr.gov.egm.library.exceptions.dao.CreateException;
 import tr.gov.egm.library.exceptions.dao.ReadException;
 import tr.gov.egm.library.exceptions.dao.UpdateException;
 
-@Repository
-public interface BookDAO{
+public interface BookDAO extends GenericDAO<Book, Integer>{
 
 	public List<Book> getAllBooks() throws ReadException ;
 	

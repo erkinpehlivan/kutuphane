@@ -55,7 +55,7 @@
 			<li><a href="#"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Kitap Ýþlemleri</a></li>
 			<li><a href="#"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Rapor Al</a></li>
 			<li role="presentation" class="divider"></li>
-			<li><a href="#"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Parola Güncelle</a></li>
+			<li><a href="chg.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Þifre Deðiþtir</a></li>
 		</ul>
 
 	</div><!--/.sidebar-->

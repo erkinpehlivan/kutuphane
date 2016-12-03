@@ -1,17 +1,13 @@
-﻿/**
- * 
- */
-package tr.gov.egm.library.dao.impl;
+﻿package tr.gov.egm.library.dao.impl;
+
+import org.springframework.stereotype.Repository;
 
 import tr.gov.egm.library.dao.UserDAO;
 import tr.gov.egm.library.entities.User;
 import tr.gov.egm.library.exceptions.dao.CreateException;
 import tr.gov.egm.library.exceptions.dao.UpdateException;
 
-/**
- * @author EGM
- *
- */
+@Repository
 public class UserDAOImpl extends GenericDAOImpl<User, Integer> implements UserDAO {
 
 	/**

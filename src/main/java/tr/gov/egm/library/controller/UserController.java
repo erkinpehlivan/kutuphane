@@ -1,13 +1,16 @@
 package tr.gov.egm.library.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
+import tr.gov.egm.library.dto.UserDTO;
 import tr.gov.egm.library.entities.User;
 import tr.gov.egm.library.exceptions.service.BusinessException;
 import tr.gov.egm.library.service.UserService;
@@ -18,38 +21,48 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public String register(String username, String passwd, String passwdAgain, BindingResult br) throws BusinessException {
-		String sayfa = "login";
-		if(!passwd.equals(passwdAgain)){
-			sayfa = "register";
-		}
-		if (!br.hasErrors()) {
-			sayfa = "register";
-			userService.register(new User(username, passwd));
-		}
-		return sayfa;
+	@RequestMapping(value = "reg", method = RequestMethod.GET)
+	public String yonlendir(Model model) {
+		model.addAttribute("user", new UserDTO());
+		return "register";
 	}
-	
+
+	@RequestMapping(value = "chg", method = RequestMethod.GET)
+	public String yonlendir2(Model model) {
+		model.addAttribute("user", new UserDTO());
+		return "changePassword";
+	}
+
+	@RequestMapping(value = "register", method = RequestMethod.POST)
+	public String register(@ModelAttribute("user") UserDTO user, BindingResult br) throws BusinessException {
+		if (!user.getPassword().equals(user.getPasswordAgain())) {
+			return "register";
+		}
+
+		if (!br.hasErrors()) {
+			userService.register(new User(user.getUsername(), user.getPassword())); // DONE
+			return "register";
+		}
+		return "login";
+	}
+
 	@RequestMapping(value = "changePassword", method = RequestMethod.POST)
-	public String changePassword(@ModelAttribute("user") User user, String oldPasswd, String newPasswd, String newPasswdAgain, BindingResult br) throws BusinessException{
-		String sayfa = "login";
-		
+	public String changePassword(@ModelAttribute("user") UserDTO user, HttpServletRequest request, BindingResult br) throws BusinessException {
+		User userInSession = (User) request.getSession().getAttribute("user");
+
 		// eski parola ile yeni parola ayniysa guncelleme islemine gerek yok.
-		if(oldPasswd.equals(newPasswd)){
-			sayfa = "changePassword";
+		// yeni parola ile yeni parola tekrar ayni degilse...
+		if (user.getPassword().equals(user.getNewPassword()) || !user.getNewPassword().equals(user.getNewPasswordAgain())) {
+			return "changePassword";
 		}
-		// yeni parola ile yeni parola tekrar ayni degilse....
-		if(!newPasswd.equals(newPasswdAgain)){
-			sayfa = "changePassword";
+
+		if (!br.hasErrors()) {
+			userInSession.setPassword(user.getNewPassword());
+			userService.changePassword(userInSession);
+			return "login";
 		}
-		if(!br.hasErrors()){
-			sayfa = "userMenu";
-			user.setPassword(newPasswd);
-			userService.changePassword(user);
-		}
-		
-		return sayfa;
+
+		return "login";
 	}
 
 }

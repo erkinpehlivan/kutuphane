@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import tr.gov.egm.library.dao.AuthorDAO;
 import tr.gov.egm.library.entities.Author;
+import tr.gov.egm.library.exceptions.dao.CreateException;
 import tr.gov.egm.library.exceptions.dao.ReadException;
+import tr.gov.egm.library.exceptions.dao.UpdateException;
 
 @Service
 public class AuthorService {
@@ -39,6 +41,26 @@ public class AuthorService {
 
 		return author;
 
+	}
+	
+	public void addAuthor(Author author) {
+
+		try {
+			 dao.AddAuthor(author);
+		} catch (CreateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateAuthor(Author author) {
+
+		try {
+			 dao.updateAuthor(author);
+		} catch (UpdateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
