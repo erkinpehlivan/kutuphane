@@ -20,7 +20,7 @@
 					<form:form role="form" action="register" method="post" modelAttribute="user">
 						<fieldset>
 							<div class="form-group">
-								<form:input path="username" class="form-control" placeholder="Kullanýcý Adý" name="username" autofocus/>
+								<form:input path="username" class="form-control" placeholder="Kullanýcý Adý" name="username"/>
 							</div>
 							<div class="form-group">
 								<form:input path="password" class="form-control" placeholder="Þifre" name="password" type="password"/>
@@ -30,7 +30,7 @@
 							</div>
 							<div class="row">
 								<div class="col-md-6" style="text-align:center;">
-									<a href="" class="btn btn-block btn-primary">Kaydý Tamamla</a>
+									<button class="btn btn-block btn-primary">Kaydý Tamamla</button>
 								</div>
 								<div class="col-md-6" style="text-align:center;">
 									<a href="login.jsp" class="btn btn btn-block btn-success">Giriþ Sayfasýna Dön</a>
