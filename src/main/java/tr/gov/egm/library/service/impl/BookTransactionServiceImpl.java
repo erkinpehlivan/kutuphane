@@ -24,7 +24,7 @@ public class BookTransactionServiceImpl extends GenericServiceImpl<BookTransacti
 	private BookTransactionDAO bookTransactionDAO;
 
 	@Autowired
-	public BookTransactionServiceImpl(@Qualifier("bookTransactionDAO")GenericDAO<BookTransaction, Integer> genericDAO) {
+	public BookTransactionServiceImpl(@Qualifier("bookTransactionDAOImpl")GenericDAO<BookTransaction, Integer> genericDAO) {
 		super(genericDAO);
 		bookTransactionDAO = (BookTransactionDAO) genericDAO;
 	}
