@@ -22,6 +22,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@RequestMapping(value = "dashboard", method = RequestMethod.GET)
+	public String dashboard() {
+		return "dashboard";
+	}
+
 	@RequestMapping(value = "reg", method = RequestMethod.GET)
 	public String yonlendir(Model model) {
 		model.addAttribute("user", new UserDTO());
