@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import tr.gov.egm.library.entities.Author;
+import tr.gov.egm.library.exceptions.service.BusinessException;
 import tr.gov.egm.library.service.AuthorService;
 
 @Controller
@@ -21,26 +22,46 @@ public class AuthorController {
 
 	@RequestMapping(value = "/authors", method=RequestMethod.GET)
 	public String allAuthors(Model model) {
-		List<Author> author = service.getAllAuthors();
-		model.addAttribute("authors", author);
+		List<Author> authors = null;
+		try {
+			authors = service.findAll();
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("authors", authors);
 		return "authors";
 	}
 
 	@RequestMapping(value = "/author/{id}", method=RequestMethod.GET)
 	public String author(Model model, @PathVariable("id")Integer id) {
-		Author author = service.getAuthor(id);
-		model.addAttribute("author", author);
+		Author author;
+		try {
+			author = service.findById(id);
+			model.addAttribute("author", author);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "author";
 	}
 	
 	@RequestMapping(value = "/author", method=RequestMethod.POST)
 	public String changeAuthor(Model model,@ModelAttribute("author") Author author ) {
 		if(author.getId()==null || author.getId()==0){
-			service.addAuthor(author);
+			try {
+				service.add(author);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
 		}
 		else
 		{
-			service.updateAuthor(author);
+			try {
+				service.update(author);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
 		}
 		return "redirect:authors";
 	}

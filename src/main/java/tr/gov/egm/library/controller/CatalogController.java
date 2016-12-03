@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import tr.gov.egm.library.entities.Catalog;
+import tr.gov.egm.library.exceptions.service.BusinessException;
 import tr.gov.egm.library.service.CatalogService;
 
 @Controller
@@ -22,26 +23,49 @@ public class CatalogController {
 
 	@RequestMapping(value = "/catalogs", method=RequestMethod.GET)
 	public String allAuthors(Model model) {
-		List<Catalog> catalogs = service.getAllCatalogs();
-		model.addAttribute("catalogs", catalogs);
+		List<Catalog> catalogs;
+		try {
+			catalogs = service.findAll();
+			model.addAttribute("catalogs", catalogs);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "catalogs";
 	}
 
 	@RequestMapping(value = "/catalog/{id}", method=RequestMethod.GET)
 	public String catalog(Model model, @PathVariable("id")Integer id) {
-		Catalog catalog = service.getCatalog(id);
-		model.addAttribute("catalog", catalog);
+		Catalog catalog;
+		try {
+			catalog = service.findById(id);
+			model.addAttribute("catalog", catalog);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return "catalog";
 	}
 	
 	@RequestMapping(value = "/catalog", method=RequestMethod.POST)
 	public String changeCatalog(Model model,@ModelAttribute("catalog") Catalog catalog ) {
 		if(catalog.getId()==null || catalog.getId()==0){
-			service.addCatalog(catalog);
+			try {
+				service.add(catalog);
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else
 		{
-			service.updateCatalog(catalog);
+			try {
+				service.update(catalog);
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return "redirect:catalogs";
 	}

@@ -12,15 +12,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class AuthenticationListener implements ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 	
 	@Autowired
-	HttpSession session;
+	private HttpSession session;
 
 	@Override
 	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
-
 		UserDetails userDetails = (UserDetails) event.getAuthentication().getPrincipal();
 		session.setAttribute("username", userDetails.getUsername());
-		System.out.println("SESSION => "+session);
-
+		System.out.println("SESSION => " + session);
 
 	}
 

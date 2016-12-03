@@ -15,11 +15,11 @@
 		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 		
 		<form-login 
-			login-page="/giris.html"
+			login-page="/giris.html" 
 			authentication-failure-url="/girisHatali.html"
 			login-processing-url="/giris_kontrol"
-			username-parameter="kullaniciAdi"
-			password-parameter="parola" />
+			username-parameter="username"
+			password-parameter="password" />
 			
 		<access-denied-handler error-page="/403.html" />
 		<csrf disabled="false" />
