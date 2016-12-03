@@ -10,7 +10,7 @@
 		<intercept-url pattern="/girisHatali.html" access="permitAll" />
 		<intercept-url pattern="/403.html" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
-		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+<!-- 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" /> -->
 		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 		
 		<form-login 
@@ -31,6 +31,11 @@
 	    <user-service>
 	      <user name="user" password="password" authorities="ROLE_USER"/>
 	    </user-service>
+	  		
+<!-- 	  		<jdbc-user-service data-source-ref="dataSource"  -->
+<!-- 	  			users-by-username-query="select username, password from users where username=?" -->
+<!-- 				authorities-by-username-query="select u.username, p.name from users u, permission p, users_permission up where u.id=up.user_id and p.id=up.permission_id and u.username=?"/> -->
+	  		
 	  </authentication-provider>
 	</authentication-manager>
 

@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+<!-- 		<property name="hibernate.connection.datasource"></property> -->
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+<!-- 		<property name="hibernate.hbm2ddl.auto">update</property> -->
+		
+		<mapping class="tr.gov.egm.library.entities.Author" />
+		<mapping class="tr.gov.egm.library.entities.Book" />
+		<mapping class="tr.gov.egm.library.entities.Catalog" />
+		<mapping class="tr.gov.egm.library.entities.Category" />
+		<mapping class="tr.gov.egm.library.entities.Log" />
+		<mapping class="tr.gov.egm.library.entities.Permission" />
+		<mapping class="tr.gov.egm.library.entities.Rezervation" />
+		<mapping class="tr.gov.egm.library.entities.User" />
+	</session-factory>
+</hibernate-configuration>

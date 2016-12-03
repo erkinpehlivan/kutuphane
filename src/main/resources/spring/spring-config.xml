@@ -14,7 +14,6 @@
 
 	<context:component-scan base-package="tr.gov.egm.library" />
 	<mvc:annotation-driven />
-	<jpa:repositories base-package="tr.gov.egm.library.dao" />
 
 	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**" />
 

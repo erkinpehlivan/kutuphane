@@ -6,9 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +18,9 @@ import tr.gov.egm.library.exceptions.dao.CreateException;
 import tr.gov.egm.library.exceptions.dao.ReadException;
 import tr.gov.egm.library.exceptions.service.CRUDException;
 
-@NoRepositoryBean
-public class RezervationDAOImpl implements RezervationDAO {
+@Repository
+public class RezervationDAOImpl extends GenericDAOImpl<Rezervation, Integer> implements RezervationDAO {
 
-//	@Autowired
-	private SessionFactory sessionFactory;
 
 	/**
 	 * 
@@ -80,7 +75,7 @@ public class RezervationDAOImpl implements RezervationDAO {
 		try {
 			String sql = "select b from book b where b.id not in (" + "select BOOK_ID from rezervation r where r.startDate=:startDate and r.endDate=:endDate and r.state='started'" + ") and b.id in :idList";
 
-			Query availableBooks = sessionFactory.openSession().createSQLQuery(sql).addEntity(Book.class);
+			Query availableBooks = currentSesison().createSQLQuery(sql).addEntity(Book.class);
 
 			availableBooks.setParameter("startDate", startDate);
 			availableBooks.setParameter("endDate", endDate);
@@ -114,7 +109,7 @@ public class RezervationDAOImpl implements RezervationDAO {
 
 			// if book is available ?
 			String isBookAvailableSql = "select r from rezervation r where r.BOOK_ID=:book_id and r.startDate>=:startDate and r.endDate<=:endDate and r.state!='cancelled'";
-			Query isBookAvailableQuery = sessionFactory.openSession().createSQLQuery(isBookAvailableSql).addEntity(Rezervation.class);
+			Query isBookAvailableQuery = currentSesison().createSQLQuery(isBookAvailableSql).addEntity(Rezervation.class);
 			isBookAvailableQuery.setParameter("book_id", book.getId());
 			isBookAvailableQuery.setParameter("startDate", startDate);
 			isBookAvailableQuery.setParameter("endDate", endDate);
@@ -144,7 +139,7 @@ public class RezervationDAOImpl implements RezervationDAO {
 		try {
 			boolean result = false;
 			String sql = "select r from rezervation r where r.USER_ID=:user_id and r.startDate>=:startDate and r.endDate<=:endDate and r.r.BOOK_ID in (" + "select book.id from book where book.CATALOG_ID=:catalog_id" + ") and r.status!='cancelled'";
-			Query userHasBook = sessionFactory.openSession().createSQLQuery(sql).addEntity(Rezervation.class);
+			Query userHasBook = currentSesison().createSQLQuery(sql).addEntity(Rezervation.class);
 			userHasBook.setParameter("user_id", user.getId());
 			userHasBook.setParameter("startDate", startDate);
 			userHasBook.setParameter("endDate", endDate);
@@ -185,7 +180,7 @@ public class RezervationDAOImpl implements RezervationDAO {
 			rezervation.setState(Rezervation.REGISTERED);
 
 			try {
-				sessionFactory.openSession().save(rezervation);
+				currentSesison().save(rezervation);
 				result = true;
 			} catch (Exception e) {
 				result = false;
@@ -247,7 +242,7 @@ public class RezervationDAOImpl implements RezervationDAO {
 	public void cancelRezervation(Rezervation rezervation) throws CreateException {
 		try {
 			rezervation.setState(Rezervation.CANCELLED);
-			sessionFactory.openSession().save(rezervation);
+			currentSesison().save(rezervation);
 		} catch (Exception e) {
 			throw new CreateException("cancelRezervation hatası", e);
 		}
@@ -257,7 +252,7 @@ public class RezervationDAOImpl implements RezervationDAO {
 	public int availableBookCountForDate(Catalog catalog, Date date) throws ReadException {
 		try {
 			String isBookAvailableSql = "select r from rezervation r where r.BOOK_ID in :book_id and (" + "((" + "r.startDate>:date or r.endDate<:date" + ") and r.state!='cancelled') or ((r.startDate<:date or r.endDate>:date) and r.state='cancelled')" + ")'";
-			Query isBookAvailableQuery = sessionFactory.openSession().createSQLQuery(isBookAvailableSql).addEntity(Rezervation.class);
+			Query isBookAvailableQuery = currentSesison().createSQLQuery(isBookAvailableSql).addEntity(Rezervation.class);
 			isBookAvailableQuery.setParameter("book_id", BookIdsFromCatalog(catalog));
 			isBookAvailableQuery.setParameter("date", date);
 

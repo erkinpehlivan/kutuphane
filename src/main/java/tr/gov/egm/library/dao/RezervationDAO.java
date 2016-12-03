@@ -5,8 +5,6 @@ package tr.gov.egm.library.dao;
 
 import java.util.Date;
 
-import org.springframework.data.repository.Repository;
-
 import tr.gov.egm.library.entities.Book;
 import tr.gov.egm.library.entities.Catalog;
 import tr.gov.egm.library.entities.Rezervation;
@@ -19,7 +17,7 @@ import tr.gov.egm.library.exceptions.service.CRUDException;
  * @author EGM
  *
  */
-public interface RezervationDAO extends Repository<Rezervation, Integer> {
+public interface RezervationDAO extends GenericDAO<Rezervation, Integer> {
 	
 	/**
 	 * Bir katalogdan boştaki uygun kitabı bularak istenilen tarihte kişiye rezervasyon yapar.
