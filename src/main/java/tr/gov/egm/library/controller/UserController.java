@@ -1,6 +1,7 @@
 package tr.gov.egm.library.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public String register(@ModelAttribute("user") UserDTO user, BindingResult br) throws BusinessException {
+	public String register(@Valid @ModelAttribute("user") UserDTO user, BindingResult br) throws BusinessException {
 		if (!user.getPassword().equals(user.getPasswordAgain())) {
 			return "register";
 		}
@@ -47,18 +48,16 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "changePassword", method = RequestMethod.POST)
-	public String changePassword(@ModelAttribute("user") UserDTO user, HttpServletRequest request, BindingResult br) throws BusinessException {
-		User userInSession = (User) request.getSession().getAttribute("user");
+	public String changePassword(@Valid @ModelAttribute("user") UserDTO userDTO, HttpSession session, BindingResult br) throws BusinessException {
 
 		// eski parola ile yeni parola ayniysa guncelleme islemine gerek yok.
 		// yeni parola ile yeni parola tekrar ayni degilse...
-		if (user.getPassword().equals(user.getNewPassword()) || !user.getNewPassword().equals(user.getNewPasswordAgain())) {
+		if (userDTO.getPassword().equals(userDTO.getNewPassword()) || !userDTO.getNewPassword().equals(userDTO.getNewPasswordAgain())) {
 			return "changePassword";
 		}
 
 		if (!br.hasErrors()) {
-			userInSession.setPassword(user.getNewPassword());
-			userService.changePassword(userInSession);
+			userService.changePassword(new User(session.getAttribute("username").toString(), userDTO.getNewPassword()));
 			return "login";
 		}
 
