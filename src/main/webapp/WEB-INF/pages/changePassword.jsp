@@ -86,24 +86,27 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Þifre Deðiþtirme Formu</div>
 				<div class="panel-body">
-					<form:form modelAttribute="user" role="form" action="changePassword" method="post">
+					<form:form modelAttribute="user" role="form" action="changePassword.html" method="post">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Eski Þifreniz</label>
 									<form:input path="password" class="form-control" name="password" type="password"/>
+									<form:errors path="password" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Yeni Þifreniz</label>
 									<form:input path="newPassword" class="form-control" name="newPassword" type="password"/>
+									<form:errors path="newPassword"/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Yeni Þifre Tekrarý</label>
 									<form:input path="newPasswordAgain" class="form-control" name="newPasswordAgain" type="password"/>
+									<form:errors path="newPasswordAgain" />
 								</div>
 							</div>
 							<div class="col-md-12">

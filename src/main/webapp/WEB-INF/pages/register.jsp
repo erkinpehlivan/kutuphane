@@ -17,16 +17,19 @@
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">Kullanýcý Kaydý Sayfasý</div>
 				<div class="panel-body">
-					<form:form role="form" action="register" method="post" modelAttribute="user">
+					<form:form role="form" action="register.html" method="post" modelAttribute="user">
 						<fieldset>
 							<div class="form-group">
 								<form:input path="username" class="form-control" placeholder="Kullanýcý Adý" name="username"/>
+								<form:errors path="username" />
 							</div>
 							<div class="form-group">
 								<form:input path="password" class="form-control" placeholder="Þifre" name="password" type="password"/>
+								<form:errors path="password" />
 							</div>
 							<div class="form-group">
 								<form:input path="passwordAgain" class="form-control" placeholder="Þifre Tekrarý" name="passwordAgain" type="password"/>
+								<form:errors path="passwordAgain" />
 							</div>
 							<div class="row">
 								<div class="col-md-6" style="text-align:center;">

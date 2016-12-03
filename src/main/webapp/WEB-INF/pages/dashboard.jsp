@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-9" pageEncoding="ISO-8859-9"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,10 +52,12 @@
 			<!-- Eðer Kullanýcýysa -->
 			<li><a href="#"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Kitap Rezerve Et</a></li>
 			<!-- Eðer Admin ise -->
-			<li><a href="#"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Yazar Ýþlemleri</a></li>
-			<li><a href="#"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Kitap Ýþlemleri</a></li>
-			<li><a href="#"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Rapor Al</a></li>
-			<li role="presentation" class="divider"></li>
+			<security:authorize access="hasRole('ROLE_ADMIN')">
+				<li><a href="#"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Yazar Ýþlemleri</a></li>
+				<li><a href="#"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Kitap Ýþlemleri</a></li>
+				<li><a href="#"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Rapor Al</a></li>
+				<li role="presentation" class="divider"></li>
+			</security:authorize>
 			<li><a href="chg.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Þifre Deðiþtir</a></li>
 		</ul>
 

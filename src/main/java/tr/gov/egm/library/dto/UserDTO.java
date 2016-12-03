@@ -5,19 +5,27 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserDTO {
 	
-	@NotEmpty
+	public interface Group1{ // register
+		
+	}
+	
+	public interface Group2{ // changePassword
+		
+	}
+	
+	@NotEmpty(groups = Group1.class)
 	@Length(min = 5, max = 20)
 	private String username;
-	@NotEmpty
+	@NotEmpty(groups = {Group1.class, Group2.class})
 	@Length(min = 5)
 	private String password;
-	@NotEmpty
+	@NotEmpty(groups = Group1.class)
 	@Length(min = 5)
 	private String passwordAgain;
-	@NotEmpty
+	@NotEmpty(groups = Group2.class)
 	@Length(min = 5)
 	private String newPassword;
-	@NotEmpty
+	@NotEmpty(groups = Group2.class)
 	@Length(min = 5)
 	private String newPasswordAgain;
 
