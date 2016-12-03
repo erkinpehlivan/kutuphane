@@ -20,33 +20,31 @@ public class AuthorController {
 	@Autowired
 	private AuthorService service;
 
-	@RequestMapping(value = "/authors", method=RequestMethod.GET)
+	@RequestMapping(value = "authors", method=RequestMethod.GET)
 	public String allAuthors(Model model) {
 		List<Author> authors = null;
 		try {
 			authors = service.findAll();
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		model.addAttribute("authors", authors);
 		return "authors";
 	}
 
-	@RequestMapping(value = "/author/{id}", method=RequestMethod.GET)
+	@RequestMapping(value = "author/{id}", method=RequestMethod.GET)
 	public String author(Model model, @PathVariable("id")Integer id) {
 		Author author;
 		try {
 			author = service.findById(id);
 			model.addAttribute("author", author);
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "author";
 	}
 	
-	@RequestMapping(value = "/author", method=RequestMethod.POST)
+	@RequestMapping(value = "author", method=RequestMethod.POST)
 	public String changeAuthor(Model model,@ModelAttribute("author") Author author ) {
 		if(author.getId()==null || author.getId()==0){
 			try {

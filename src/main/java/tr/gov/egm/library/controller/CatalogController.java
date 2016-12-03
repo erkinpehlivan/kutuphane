@@ -21,40 +21,36 @@ public class CatalogController {
 	@Autowired
 	private CatalogService service;
 
-	@RequestMapping(value = "/catalogs", method=RequestMethod.GET)
-	public String allAuthors(Model model) {
+	@RequestMapping(value = "catalogs", method=RequestMethod.GET)
+	public String allCatalogs(Model model) {
 		List<Catalog> catalogs;
 		try {
 			catalogs = service.findAll();
 			model.addAttribute("catalogs", catalogs);
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "catalogs";
 	}
 
-	@RequestMapping(value = "/catalog/{id}", method=RequestMethod.GET)
+	@RequestMapping(value = "catalog/{id}", method=RequestMethod.GET)
 	public String catalog(Model model, @PathVariable("id")Integer id) {
 		Catalog catalog;
 		try {
 			catalog = service.findById(id);
 			model.addAttribute("catalog", catalog);
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return "catalog";
 	}
 	
-	@RequestMapping(value = "/catalog", method=RequestMethod.POST)
+	@RequestMapping(value = "catalog", method=RequestMethod.POST)
 	public String changeCatalog(Model model,@ModelAttribute("catalog") Catalog catalog ) {
 		if(catalog.getId()==null || catalog.getId()==0){
 			try {
 				service.add(catalog);
 			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -63,7 +59,6 @@ public class CatalogController {
 			try {
 				service.update(catalog);
 			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
