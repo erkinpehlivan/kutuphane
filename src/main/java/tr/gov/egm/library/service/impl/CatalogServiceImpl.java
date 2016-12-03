@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import tr.gov.egm.library.dao.CatalogDAO;
 import tr.gov.egm.library.dao.GenericDAO;
@@ -44,7 +45,7 @@ public class CatalogServiceImpl extends GenericServiceImpl<Catalog, Integer> imp
 		return catalog;
 
 	}
-
+@Transactional
 	public void addCatalog(Catalog catalog) throws BusinessException {
 		try {
 			dao.add(catalog);
@@ -52,7 +53,7 @@ public class CatalogServiceImpl extends GenericServiceImpl<Catalog, Integer> imp
 			throw new BusinessException("Katalog eklenemedi", e);
 		}
 	}
-
+@Transactional
 	public void updateCatalog(Catalog catalog) throws BusinessException {
 		try {
 			dao.update(catalog);

@@ -47,7 +47,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value = "category", method=RequestMethod.POST)
-	public String changeCategory(Model model,@ModelAttribute("category") Category category ) {
+	public String changeCategory(@ModelAttribute("category") Category category, Model model) {
 		if(category.getId()==null || category.getId()==0){
 			try {
 				service.add(category);

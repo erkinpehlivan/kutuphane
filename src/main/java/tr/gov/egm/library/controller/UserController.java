@@ -1,6 +1,6 @@
 package tr.gov.egm.library.controller;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,33 +40,39 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public String register(@Validated(UserDTO.Group1.class) @ModelAttribute("user") UserDTO user, BindingResult br) throws BusinessException {
+	public String register(@Validated(UserDTO.Group1.class) @ModelAttribute("user") UserDTO user, HttpServletRequest request, BindingResult br) throws BusinessException {
+		String sayfa = "register";
+		
+		// parola ile parola tekrar uyusmuyor...
 		if (!user.getPassword().equals(user.getPasswordAgain())) {
-			return "register";
+			request.setAttribute("mesaj", "Parola ile Parola tekrar uyuşmuyor !!!");
 		}
 
 		if (!br.hasErrors()) {
-			userService.register(new User(user.getUsername(), user.getPassword())); // DONE
-			return "register";
+			userService.register(new User(user.getUsername(), user.getPassword()));
+			sayfa = "login";
 		}
-		return "login";
+		return sayfa;
 	}
 
 	@RequestMapping(value = "changePassword", method = RequestMethod.POST)
-	public String changePassword(@Validated(UserDTO.Group2.class) @ModelAttribute("user") UserDTO userDTO, HttpSession session, BindingResult br) throws BusinessException {
-
+	public String changePassword(@Validated(UserDTO.Group2.class) @ModelAttribute("user") UserDTO userDTO, HttpServletRequest request, BindingResult br) throws BusinessException {
+		String sayfa = "changePassword";
+		
 		// eski parola ile yeni parola ayniysa guncelleme islemine gerek yok.
+		if (userDTO.getPassword().equals(userDTO.getNewPassword())) {
+			request.setAttribute("mesaj","Yeni parola eski parola ile aynı !!!");
+		}
 		// yeni parola ile yeni parola tekrar ayni degilse...
-		if (userDTO.getPassword().equals(userDTO.getNewPassword()) || !userDTO.getNewPassword().equals(userDTO.getNewPasswordAgain())) {
-			return "changePassword";
+		if(!userDTO.getNewPassword().equals(userDTO.getNewPasswordAgain())){
+			request.setAttribute("mesaj","Yeni parola ile Yeni parola tekrar uyuşmuyor !!!");
 		}
-
 		if (!br.hasErrors()) {
-			userService.changePassword(new User(session.getAttribute("username").toString(), userDTO.getNewPassword()));
-			return "login";
+			userService.changePassword(new User(request.getSession().getAttribute("username").toString(), userDTO.getNewPassword()));
+			sayfa = "login";
 		}
-
-		return "login";
+			
+		return sayfa;
 	}
 
 }

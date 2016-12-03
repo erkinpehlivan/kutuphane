@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,58 +21,15 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#sidebar-collapse">
-				<span class="sr-only">Menüyü Kapat</span> <span class="icon-bar"></span>
-				<span class="icon-bar"></span> <span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#"><span>EGM</span>KÜTÜPHANE</a>
-			<ul class="user-menu">
-				<li class="dropdown pull-right"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown"><svg
-							class="glyph stroked male-user"> <use
-							xlink:href="#stroked-male-user"></use></svg> Kullanýcý Adý <span
-						class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#"><svg class="glyph stroked cancel">
-								<use xlink:href="#stroked-cancel"></use></svg> Çýkýþ Yap </a></li>
-					</ul></li>
-			</ul>
-		</div>
 
-	</div>
-	<!-- /.container-fluid --> </nav>
 
-	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-		<form role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Kitap Ara">
-			</div>
-		</form>
-		<ul class="nav menu">
-			<li><a href="#"><svg class="glyph stroked dashboard-dial">
-					<use xlink:href="#stroked-dashboard-dial"></use></svg> Ana Sayfa</a></li>
-			<!-- Eðer Kullanýcýysa -->
-			<li><a href="#"><svg class="glyph stroked star"> <use
-						xlink:href="#stroked-star"></use></svg> Kitap Rezerve Et</a></li>
-			<!-- Eðer Admin ise -->
-			<li><a href="#"><svg class="glyph stroked star"> <use
-						xlink:href="#stroked-star"></use></svg> Yazar Ýþlemleri</a></li>
-			<li><a href="#"><svg class="glyph stroked star"> <use
-						xlink:href="#stroked-star"></use></svg> Kitap Ýþlemleri</a></li>
-			<li><a href="#"><svg class="glyph stroked star"> <use
-						xlink:href="#stroked-star"></use></svg> Rapor Al</a></li>
-			<li role="presentation" class="divider"></li>
-			<li class="active"><a href="#"><svg
-						class="glyph stroked male-user"> <use
-						xlink:href="#stroked-male-user"></use></svg> Parola Güncelle</a></li>
-		</ul>
 
-	</div>
-	<!--/.sidebar-->
+<t:navbar>
+
+</t:navbar>
+<t:sidebar>
+
+</t:sidebar>
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">

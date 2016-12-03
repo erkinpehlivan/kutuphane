@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import tr.gov.egm.library.dao.BookDAO;
 import tr.gov.egm.library.dao.GenericDAO;
@@ -44,7 +45,7 @@ public class BookServiceImpl extends GenericServiceImpl<Book, Integer> implement
 		return book;
 
 	}
-
+	@Transactional
 	public void addBook(Book book) throws BusinessException {
 		try {
 			dao.add(book);
@@ -52,7 +53,7 @@ public class BookServiceImpl extends GenericServiceImpl<Book, Integer> implement
 			throw new BusinessException("Kitap eklenemedi", e);
 		}
 	}
-
+	@Transactional
 	public void updateBook(Book book) throws BusinessException {
 		try {
 			dao.update(book);

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import tr.gov.egm.library.dao.CategoryDAO;
 import tr.gov.egm.library.dao.GenericDAO;
@@ -44,7 +45,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Integer> i
 		return category;
 
 	}
-
+@Transactional
 	public void addCategory(Category category) throws BusinessException {
 		try {
 			dao.add(category);
@@ -52,7 +53,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Integer> i
 			throw new BusinessException("Kategori eklenemedi", e);
 		}
 	}
-
+@Transactional
 	public void updateCategory(Category category) throws BusinessException {
 		try {
 			dao.update(category);

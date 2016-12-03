@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import tr.gov.egm.library.dao.AuthorDAO;
 import tr.gov.egm.library.dao.GenericDAO;
@@ -44,7 +45,7 @@ public class AuthorServiceImpl extends GenericServiceImpl<Author, Integer> imple
 		return author;
 
 	}
-
+	@Transactional
 	public void addAuthor(Author author) throws BusinessException {
 		try {
 			dao.add(author);
@@ -52,7 +53,7 @@ public class AuthorServiceImpl extends GenericServiceImpl<Author, Integer> imple
 			throw new BusinessException("Yazar eklenemedi", e);
 		}
 	}
-
+	@Transactional
 	public void updateAuthor (Author author) throws BusinessException {
 		try {
 			dao.update(author);
